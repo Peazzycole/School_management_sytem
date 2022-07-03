@@ -28,3 +28,5 @@ Git and GitHub - 80%
 tailwind Css - 0%
 
 next Js - 0%
+
+wordpress - 0%
