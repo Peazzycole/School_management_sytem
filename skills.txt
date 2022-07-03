@@ -1,0 +1,30 @@
+
+HTML - 100% 
+
+CSS - 80%
+
+JAVASCRIPT - 30%
+
+PHP - 50%
+
+Laravel - 0%
+
+REACT - 50%
+
+MYSQL - 90%
+
+POSTGRES - 20%
+
+Node.js - 30%
+
+vue.js - 0%
+
+SASS - 0%
+
+Working with APIs - 0%
+
+Git and GitHub - 80%
+
+tailwind Css - 0%
+
+next Js - 0%
