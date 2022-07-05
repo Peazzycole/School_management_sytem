@@ -62,7 +62,12 @@ class Classes extends Controller
 
         $classes = new MyClasses;
         $errors = array();
-        if (count($_POST) > 0) {
+        $row = $classes->where('id', $id);
+        if ($row) {
+            $row = $row[0];
+        }
+
+        if (count($_POST) > 0 && Auth::access('lecturer') && Auth::iOwnContent($row)) {
 
             if ($classes->validate($_POST)) {
                 $classes->update($id, $_POST);
@@ -73,15 +78,15 @@ class Classes extends Controller
         }
 
 
-        $row = $classes->where('id', $id);
-        if ($row) {
-            $row = $row[0];
-        }
 
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Classes', 'classes'];
         $crumbs[] = ['Edit', 'classes/edit'];
-        $this->view('classes.edit', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+        if (Auth::access('lecturer') && Auth::iOwnContent($row)) {
+            $this->view('classes.edit', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+        } else {
+            $this->view('access-denied');
+        }
     }
 
     public function delete($id = null)
@@ -90,9 +95,14 @@ class Classes extends Controller
             $this->redirect('login');
         }
 
+
         $classes = new MyClasses;
         $errors = array();
-        if (count($_POST) > 0) {
+        $row = $classes->where('id', $id);
+        if ($row) {
+            $row = $row[0];
+        }
+        if (count($_POST) > 0 && Auth::access('lecturer') && Auth::iOwnContent($row)) {
 
 
             $classes->delete($id);
@@ -100,14 +110,16 @@ class Classes extends Controller
         }
 
 
-        $row = $classes->where('id', $id);
-        if ($row) {
-            $row = $row[0];
-        }
+
 
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Classes', 'classes'];
         $crumbs[] = ['Delete', 'classes/delete'];
-        $this->view('classes.delete', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+
+        if (Auth::access('lecturer') && Auth::iOwnContent($row)) {
+            $this->view('classes.delete', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+        } else {
+            $this->view('access-denied');
+        }
     }
 }
