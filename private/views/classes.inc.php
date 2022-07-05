@@ -33,13 +33,14 @@
                             <?= get_date($row->date) ?>
                         </td>
                         <td>
-
-                            <a href=" <?= ROOT ?>/classes/delete/<?= $row->id ?>">
-                                <button class="btn btn-sm btn-danger float-end"> <i class="fa fa-trash-alt"></i></button>
-                            </a>
-                            <a href=" <?= ROOT ?>/classes/edit/<?= $row->id ?>">
-                                <button class="btn btn-sm btn-info text-white float-end me-2"> <i class="fa fa-edit"></i></button>
-                            </a>
+                            <?php if (Auth::access('lecturer')) : ?>
+                                <a href=" <?= ROOT ?>/classes/delete/<?= $row->id ?>">
+                                    <button class="btn btn-sm btn-danger float-end"> <i class="fa fa-trash-alt"></i></button>
+                                </a>
+                                <a href=" <?= ROOT ?>/classes/edit/<?= $row->id ?>">
+                                    <button class="btn btn-sm btn-info text-white float-end me-2"> <i class="fa fa-edit"></i></button>
+                                </a>
+                            <?php endif; ?>
                         </td>
                     </tr>
 
