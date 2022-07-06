@@ -14,9 +14,19 @@ class Classes extends Controller
         }
 
         $classes = new MyClasses;
+        $arr = [];
 
         if (Auth::access('admin')) {
-            $data = $classes->findAll();
+            $query = "select * from classes order by id desc";
+
+            if (isset($_GET['find'])) {
+
+                $find = "%" . $_GET['find'] . "%";
+                $query = "SELECT * FROM classes WHERE class like :find order by id desc";
+                $arr['find'] = $find;
+            }
+
+            $data = $classes->query($query, $arr);
         }
 
 

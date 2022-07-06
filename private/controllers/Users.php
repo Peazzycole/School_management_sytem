@@ -10,22 +10,32 @@ class Users extends Controller
         }
         $school_id = Auth::getSchool_id();
         $user = new User;
+        $query = "SELECT * FROM users WHERE school_id = :school_id && rank not in ('student') order by id desc";
+
+        $arr['school_id'] = $school_id;
+
+        if (isset($_GET['find'])) {
+
+            $find = "%" . $_GET['find'] . "%";
+            $query = "SELECT * FROM users WHERE school_id = :school_id && rank not in ('student') && ( firstname like :find || lastname like :find) order by id desc";
+            $arr['find'] = $find;
+        }
+
         $data = $user->query(
-            "SELECT * FROM users WHERE school_id = :school_id && rank not in ('student') order by id desc",
-            ['school_id' => $school_id]              //&& rank != 'superAdmin' 
+            $query,
+            $arr             //&& rank != 'superAdmin' 
         );
 
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['staff', 'users'];
 
-        if(Auth::access('admin')){
+        if (Auth::access('admin')) {
             $this->view('users', [
                 'rows' => $data,
                 'crumbs' => $crumbs,
             ]);
-        }else{
+        } else {
             $this->view('access-denied');
         }
-        
     }
 }

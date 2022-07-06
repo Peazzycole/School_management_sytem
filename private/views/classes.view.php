@@ -14,7 +14,17 @@
 
     <?php $this->view('includes/crumbs', ['crumbs' => $crumbs]) ?>
     <h5>Classes</h5>
+
+    <nav class="navbar bg-light ms-5">
+        <form class="container-fluid">
+            <div class="input-group">
+                <button class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i>&nbsp</button>
+                <input type="text" class="form-control" value="<?= isset($_GET['find']) ? $_GET['find'] : ""; ?>" name="find" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" style="max-width: 400px;">
+            </div>
+        </form>
+    </nav>
     <div class="card-group justify-content-center">
+
 
 
         <?php include(views_path('classes')) ?>

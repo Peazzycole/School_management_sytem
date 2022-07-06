@@ -22,8 +22,8 @@
             <nav class="navbar bg-light">
                 <form class="container-fluid">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i>&nbsp</span>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" style="max-width: 400px;">
+                        <button class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i>&nbsp</button>
+                        <input type="text" class="form-control" name="find" value="<?= isset($_GET['find']) ? $_GET['find'] : ""; ?>" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" style="max-width: 400px;">
                     </div>
                 </form>
             </nav>
