@@ -15,12 +15,21 @@ class Classes extends Controller
 
         $classes = new MyClasses;
 
-        $data = $classes->findAll();
+        if (Auth::access('admin')) {
+            $data = $classes->findAll();
+        }
+
 
 
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Classes', 'classes'];
-        $this->view('classes', ['rows' => $data, 'crumbs' => $crumbs]);
+
+        if (Auth::access('admin')) {
+
+            $this->view('classes', ['rows' => $data, 'crumbs' => $crumbs]);
+        } else {
+            $this->view('access-denied');
+        }
     }
 
     public function add()

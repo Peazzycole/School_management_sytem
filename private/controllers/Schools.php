@@ -19,7 +19,13 @@ class Schools extends Controller
 
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Schools', 'schools'];
-        $this->view('schools', ['rows' => $data, 'crumbs' => $crumbs]);
+
+        if(Auth::access('superAdmin')){
+            $this->view('schools', ['rows' => $data, 'crumbs' => $crumbs]);
+
+        }else{
+            $this->view('access-denied');
+        }
     }
 
     public function add()
@@ -34,7 +40,7 @@ class Schools extends Controller
 
 
 
-        if (count($_POST) > 0) {
+        if (count($_POST) > 0 && Auth::access('superAdmin')) {
             $school = new School;
             if ($school->validate($_POST)) {
                 $_POST['date'] = date("Y-m-d H:i:s");
@@ -49,7 +55,12 @@ class Schools extends Controller
         $crumbs[] = ['Schools', 'schools'];
         $crumbs[] = ['Add', 'schools/add'];
 
-        $this->view('schools.add', ['errors' => $errors, 'crumbs' => $crumbs]);
+        if(Auth::access('superAdmin')){
+            $this->view('schools.add', ['errors' => $errors, 'crumbs' => $crumbs]);
+
+        }else{
+            $this->view('access-denied');
+        }
     }
 
     public function edit($id = null)
@@ -61,7 +72,7 @@ class Schools extends Controller
 
         $school = new School;
         $errors = array();
-        if (count($_POST) > 0) {
+        if (count($_POST) > 0 && Auth::access('superAdmin')) {
 
             if ($school->validate($_POST)) {
                 $school->update($id, $_POST);
@@ -80,7 +91,13 @@ class Schools extends Controller
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Schools', 'schools'];
         $crumbs[] = ['Edit', 'schools/edit'];
-        $this->view('schools.edit', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+
+        if(Auth::access('superAdmin')){
+            $this->view('schools.edit', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+
+        }else{
+            $this->view('access-denied');
+        }
     }
 
     public function delete($id = null)
@@ -91,7 +108,7 @@ class Schools extends Controller
 
         $school = new School;
         $errors = array();
-        if (count($_POST) > 0) {
+        if (count($_POST) > 0 && Auth::access('superAdmin')) {
 
 
             $school->delete($id);
@@ -107,6 +124,12 @@ class Schools extends Controller
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Schools', 'schools'];
         $crumbs[] = ['Delete', 'schools/delete'];
-        $this->view('schools.delete', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+
+        if(Auth::access('superAdmin')){
+            $this->view('schools.delete', ['row' => $row, 'errors' => $errors, 'crumbs' => $crumbs]);
+        }else{
+            $this->view('access-denied');
+        }
+        
     }
 }

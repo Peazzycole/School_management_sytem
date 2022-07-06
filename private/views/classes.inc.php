@@ -6,11 +6,15 @@
             <th>Created by</th>
             <th>Date</th>
 
-            <th>
-                <a href=" <?= ROOT ?>/classes/add">
-                    <button class="btn btn-sm btn-primary float-end"><i class="fa fa-plus"> Add new</i></button>
-                </a>
-            </th>
+            <?php if (Auth::access('admin')) : ?>
+                <th>
+                    <a href=" <?= ROOT ?>/classes/add">
+                        <button class="btn btn-sm btn-primary float-end"><i class="fa fa-plus"> Add new</i></button>
+                    </a>
+                </th>
+            <?php else : ?>
+                <th></th>
+            <?php endif; ?>
 
 
         </tr>
