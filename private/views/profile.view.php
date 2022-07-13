@@ -14,6 +14,16 @@
                     <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto rounded-circle" style="width:150px" />
                 <?php endif; ?>
                 <h3 class="text-center mt-1"><?= esc($row->firstname) ?> <?= esc($row->lastname) ?></h3>
+                <?php if (Auth::access('admin')) : ?>
+                    <div class="text-center">
+                        <a href="<?= ROOT ?>/profile/edit/<?= $row->user_id ?>">
+                            <button class="mt-2 btn btn-sm btn-success">Edit Profile</button>
+                        </a>
+                        <a href="<?= ROOT ?>/profile/delete/<?= $row->user_id ?>">
+                            <button class="mt-2 btn btn-sm btn-danger">Delete Profile</button>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="col-md-8 col-sm-12 bg-light p-2 ">
                 <table class="table table-hover table-striped table-bordered">

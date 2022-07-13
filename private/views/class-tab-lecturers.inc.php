@@ -24,9 +24,11 @@
             <?php $row = $lecturer->user;
             include(views_path('user')) ?>
         <?php endforeach; ?>
+
     <?php else : ?>
         <center>
             <h4>No lecturer were found in this class</h4>
         </center>
     <?php endif; ?>
 </div>
+<?php $pager->display() ?>
