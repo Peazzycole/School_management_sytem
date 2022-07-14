@@ -7,22 +7,27 @@
     </center>
     <?php if (is_object($row)) : ?>
 
-
-        <div class="row">
-            <div class="col-md-4 col-sm-12">
-                <?php if ($row->gender == 'female') : ?>
-                    <img src="<?= ROOT ?>/assests/user_female.jpg" class="d-block border border-secondary mx-auto r" style="width:150px" />
-                <?php else : ?>
-                    <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto " style="width:150px" />
-                <?php endif; ?>
-                <?php if (Auth::access('admin')) : ?>
-                    <div class="text-center">
-                        <button class="mt-2 btn btn-sm btn-success">Browse Image</button>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="col-md-8 col-sm-12 bg-light p-2 ">
-                <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <?php if ($row->gender == 'female' && empty($row->image)) : ?>
+                        <img src="<?= ROOT ?>/assests/user_female.jpg" class="d-block border border-secondary mx-auto r" style="width:150px" />
+                    <?php elseif ($row->gender == 'male' && empty($row->image)) : ?>
+                        <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto " style="width:150px" />
+                    <?php else : ?>
+                        <img src="<?= ROOT ?>/<?= $row->image ?>" class="d-block border border-secondary mx-auto r" style="width:150px" />
+                    <?php endif; ?>
+                    <?php if (Auth::access('admin')) : ?>
+                        <div class="text-center">
+                            <label for="browseImage" class="btn btn-sm btn-info text-white mt-3">
+                                <input onchange="displayName(this.files[0].name)" id="browseImage" type="file" name="image" style="display: none;">
+                                Browse Image
+                            </label><br>
+                            <small class="fileInfo text-muted"></small>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="col-md-8 col-sm-12 bg-light p-2 ">
                     <div class="p-4 mr-4 mx-auto shadow rounded">
 
                         <?php if (count($errors) > 0) : ?>
@@ -38,7 +43,7 @@
                         <input class=" mb-3 form-control" type="text" value="<?= get_var('lastname', $row->lastname) ?>" type="lastname" name="lastname" placeholder="Last Name">
                         <input class=" mb-3 form-control" type="email" value="<?= get_var('email', $row->email) ?>" type="email" name="email" placeholder="Email">
                         <select class=" mb-3 form-control" name=gender>
-                            <option <?= get_select('gender', $row->gender) ?> value="<?php get_var('gender', $row->gender) ?>"><?= ucwords($row->gender) ?></option>
+                            <option <?= get_select('gender', $row->gender) ?> value="<?= $row->gender ?>"><?= ucwords($row->gender) ?></option>
                             <option <?= get_select('gender', 'male') ?> value="male">Male</option>
                             <option <?= get_select('gender', 'female') ?> value="female">Female</option>
                             <option <?= get_select('gender', 'others') ?> value="others">Others</option>
@@ -69,9 +74,10 @@
 
 
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
+
 
 
 
@@ -82,5 +88,11 @@
     <h4 class="text-center">That profile was not found!</h4>
 <?php endif; ?>
 </div>
+
+<script>
+    function displayName(fileName) {
+        document.querySelector(".fileInfo").innerHTML = '<b>Selected file</b><br>' + fileName;
+    }
+</script>
 
 <?php $this->view('includes/footer') ?>

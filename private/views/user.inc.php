@@ -1,8 +1,10 @@
 <div class="card m-2 shadow" style="max-width: 12rem; min-width: 12rem;">
-    <?php if ($row->gender == 'female') : ?>
-        <img src="<?= ROOT ?>/assests/user_female.jpg" class="card-img-top p-2  d-block mx-auto mt-1" alt="car Image">
+    <?php if ($row->gender == 'female' && empty($row->image)) : ?>
+        <img src="<?= ROOT ?>/assests/user_female.jpg" class="d-block border border-secondary mx-auto r" style="width:150px" />
+    <?php elseif ($row->gender == 'male' && empty($row->image)) : ?>
+        <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto " style="width:150px" />
     <?php else : ?>
-        <img src="<?= ROOT ?>/assests/user_male.jpg" class="card-img-top p-2 d-block mx-auto mt-1" alt="car Image">
+        <img src="<?= ROOT ?>/<?= $row->image ?>" class="d-block border border-secondary mx-auto r" style="width:150px" />
     <?php endif; ?>
     <div class="card-body">
         <h5 class="card-title"><?= $row->firstname ?> <?= $row->lastname ?></h5>

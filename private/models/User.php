@@ -11,7 +11,8 @@ class User extends Model
         'password',
         'gender',
         'rank',
-        'date'
+        'date',
+        'image'
     ];
 
     protected $beforeInsert = [
@@ -20,9 +21,13 @@ class User extends Model
         'hash_password'
     ];
 
+    protected $beforeUpdate = [
+        'hash_password'
+    ];
 
 
-    public function validate($DATA)
+
+    public function validate($DATA, $id = '')
     {
         $errors = array();
 
@@ -45,14 +50,19 @@ class User extends Model
         // check if email already exists
         $user = new User();
         $man = $user->where('email', $DATA['email']);
-        $query = "select * from users where email = :email ";
-        $dat = $this->query($query, ['email' => $DATA['email']]);
-        // $email = $dat[0];
 
-
-        if (!empty($dat[0]->email)) {
-            $this->errors['email'] = "Email already exists";
+        if (trim($id) == "") {
+            $query = "select * from users where email = :email ";
+            $dat = $this->query($query, ['email' => $DATA['email']]);
+            if (!empty($dat[0]->email)) {
+                $this->errors['email'] = "Email already exists";
+            }
+        } else {
+            if ($this->query("select email from $this->table where email = :email && user_id != :id", ['email' => $DATA['email'], 'id' => $id])) {
+                $this->errors['email'] = "Email already exists";
+            }
         }
+
 
 
 
@@ -60,13 +70,16 @@ class User extends Model
 
 
         // check password match
-        if (empty($DATA['password']) || $DATA['password'] != $DATA['password2']) {
-            $this->errors['password'] = "The Passwords do not match";
+        if (isset($DATA['password'])) {
+            if (empty($DATA['password']) || $DATA['password'] != $DATA['password2']) {
+                $this->errors['password'] = "The Passwords do not match";
+            }
+
+            if (strlen($DATA['password']) < 8) {
+                $this->errors['password'] = "Password must be at least 8 characters long";
+            }
         }
 
-        if (strlen($DATA['password']) < 8) {
-            $this->errors['password'] = "Password must be at least 8 characters long";
-        }
 
         // check for gender
         $genders = ['female', 'male'];
@@ -108,7 +121,9 @@ class User extends Model
 
     public function hash_password($data)
     {
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        if (isset($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
         return $data;
     }
 }

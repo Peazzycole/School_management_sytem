@@ -8,10 +8,12 @@
 
         <div class="row">
             <div class="col-md-4 col-sm-12">
-                <?php if ($row->gender == 'female') : ?>
-                    <img src="<?= ROOT ?>/assests/user_female.jpg" class="d-block border border-secondary mx-auto rounded-circle" style="width:150px" />
+                <?php if ($row->gender == 'female' && empty($row->image)) : ?>
+                    <img src="<?= ROOT ?>/assests/user_female.jpg" class="d-block border border-secondary mx-auto r" style="width:150px" />
+                <?php elseif ($row->gender == 'male' && empty($row->image)) : ?>
+                    <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto " style="width:150px" />
                 <?php else : ?>
-                    <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto rounded-circle" style="width:150px" />
+                    <img src="<?= ROOT ?>/<?= $row->image ?>" class="d-block border border-secondary mx-auto r" style="width:150px" />
                 <?php endif; ?>
                 <h3 class="text-center mt-1"><?= esc($row->firstname) ?> <?= esc($row->lastname) ?></h3>
                 <?php if (Auth::access('admin')) : ?>

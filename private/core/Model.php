@@ -107,6 +107,24 @@ class Model extends Database
     // update user
     public function update($id, $data)
     {
+        // remove unwanted columns
+        if (property_exists($this, 'allowedColumns')) {
+            foreach ($data as $key => $column) {
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+
+        // // Functions to run before updating Data
+        if (property_exists($this, 'beforeUpdate')) {
+            foreach ($this->beforeUpdate as $func) {
+                $data = $this->$func($data);
+            }
+        }
+
+
+
         $str = "";
         foreach ($data as $key => $value) {
             $str .= $key . "=:" . $key . ",";
