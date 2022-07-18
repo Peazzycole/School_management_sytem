@@ -6,17 +6,18 @@
         <h2>Edit Profile</h2>
     </center>
     <?php if (is_object($row)) : ?>
-
         <form method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <?php if ($row->gender == 'female' && empty($row->image)) : ?>
-                        <img src="<?= ROOT ?>/assests/user_female.jpg" class="d-block border border-secondary mx-auto r" style="width:150px" />
+                        <img src="<?= ROOT ?>/assests/user_female.jpg" class="rounded-circle card-img-top w-75 d-block mx-auto mt-1" style="width:150px" />
                     <?php elseif ($row->gender == 'male' && empty($row->image)) : ?>
-                        <img src="<?= ROOT ?>/assests/user_male.jpg" class="d-block border border-secondary mx-auto " style="width:150px" />
+                        <img src="<?= ROOT ?>/assests/user_male.jpg" class="rounded-circle card-img-top w-75 d-block mx-auto mt-1" style="width:150px" />
                     <?php else : ?>
-                        <img src="<?= ROOT ?>/<?= $row->image ?>" class="d-block border border-secondary mx-auto r" style="width:150px" />
+                        <img src="<?= ROOT ?>/<?= $row->image ?>" class="rounded-circle card-img-top w-75 d-block mx-auto mt-1" style="width:150px" />
                     <?php endif; ?>
+
+
                     <?php if (Auth::access('admin')) : ?>
                         <div class="text-center">
                             <label for="browseImage" class="btn btn-sm btn-info text-white mt-3">
@@ -94,5 +95,4 @@
         document.querySelector(".fileInfo").innerHTML = '<b>Selected file</b><br>' + fileName;
     }
 </script>
-
 <?php $this->view('includes/footer') ?>

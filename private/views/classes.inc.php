@@ -51,9 +51,13 @@
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php else : ?>
-            <center>
-                <h4>No classes were found at this time</h4>
-            </center>
+            <tr>
+                <td colspan="5">
+                    <center>
+                        <h4>No classes were found at this time</h4>
+                    </center>
+                </td>
+            </tr>
         <?php endif; ?>
     </table>
 </div>

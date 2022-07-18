@@ -7,7 +7,7 @@
             </div>
         </form>
     </nav>
-    <a href="<?= ROOT ?>/single_class/<?= $row->class_id ?>?tab=tests-add">
+    <a href="<?= ROOT ?>/single_class/<?= $row->class_id ?>?tab=test-add">
         <button class="btn btn-sm btn-primary"><i class="fa fa-plus"> Add new Test</i></button>
     </a>
 </div>

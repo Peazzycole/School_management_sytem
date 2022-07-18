@@ -10,6 +10,12 @@ function get_var($key, $value = "")
     return $value;
 }
 
+function runThumbnail($image)
+{
+    $class = new Image;
+    show($class->profileThumb($image));
+}
+
 function show($data)
 {
     echo "<pre>";

@@ -73,8 +73,8 @@
                 case 'students-add':
                     include(views_path('class-tab-students-add'));
                     break;
-                case 'tests-add':
-                    include(views_path('class-tab-tests-add'));
+                case 'test-add':
+                    include(views_path('class-tab-test-add'));
                     break;
                 default:
 
