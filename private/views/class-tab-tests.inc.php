@@ -7,7 +7,60 @@
             </div>
         </form>
     </nav>
-    <a href="<?= ROOT ?>/single_class/<?= $row->class_id ?>?tab=test-add">
+    <a href="<?= ROOT ?>/single_class/testAdd/<?= $row->class_id ?>?tab=test-add">
         <button class="btn btn-sm btn-primary"><i class="fa fa-plus"> Add new Test</i></button>
     </a>
 </div>
+<table class="table table-striped table-hover">
+    <tr>
+
+        <th>Test Name</th>
+        <th>Created by</th>
+        <th>Active</th>
+        <th>Date</th>
+        <th></th>
+    </tr>
+
+
+    <?php if (isset($tests) && $tests) : ?>
+        <?php foreach ($tests as $row) : ?>
+            <?php if ($row->school_id == $_SESSION['USER']->school_id) : ?>
+                <tr>
+
+                    <td>
+                        <?= $row->test ?>
+                    </td>
+                    <td>
+                        <?= $row->user->firstname ?> <?= $row->user->lastname ?>
+                    </td>
+                    <?php $active = $row->disabled ? "NO" : "Yes"; ?>
+                    <td>
+                        <?= $active ?>
+                    </td>
+                    <td>
+                        <?= get_date($row->date) ?>
+                    </td>
+                    <td>
+                        <?php if (Auth::access('lecturer')) : ?>
+                            <a href=" <?= ROOT ?>/single_class/testDelete/<?= $row->class_id ?>/<?= $row->test_id ?>?tab=tests">
+                                <button class="btn btn-sm btn-danger float-end"> <i class="fa fa-trash-alt"></i></button>
+                            </a>
+                            <a href=" <?= ROOT ?>/single_class/testEdit/<?= $row->class_id ?>/<?= $row->test_id ?>?tab=tests">
+                                <button class="btn btn-sm btn-info text-white float-end me-2"> <i class="fa fa-edit"></i></button>
+                            </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <tr>
+            <td colspan="6">
+                <center>
+                    <h4>No Tests were found at this time</h4>
+                </center>
+            </td>
+        </tr>
+    <?php endif; ?>
+</table>

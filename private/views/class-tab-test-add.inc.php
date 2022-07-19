@@ -12,7 +12,7 @@
             </div>
         <?php endif; ?>
         <input autofocus type="text" value="<?= get_var('test') ?>" class="form-control" name="test" placeholder="Test Name"><br>
-        <textarea placeholder="Add a description for the test" class="form-control" name="" id="" cols="30" rows="5"></textarea><br>
+        <textarea placeholder="Add a description for the test" class="form-control" name="description" id="" cols="30" rows="5"><?= get_var('test') ?></textarea><br>
         <input type="submit" class="btn btn-primary float-end" value="Create">
         <a href="<?= ROOT ?>/single_class/<?= $row->class_id ?>?tab=tests">
             <input type="button" class="btn btn-warning text-white" value="Cancel">

@@ -76,6 +76,9 @@
                 case 'test-add':
                     include(views_path('class-tab-test-add'));
                     break;
+                case 'test-edit':
+                    include(views_path('class-tab-test-edit'));
+                    break;
                 default:
 
                     break;

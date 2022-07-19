@@ -13,13 +13,13 @@ class MyTests extends Model
         'test',
         'date',
         'class_id',
-        'description'
+        'description',
+        'disabled'
     ];
 
     protected $beforeInsert = [
         'make_user_id',
         'make_school_id',
-        'make_class_id',
         'make_test_id'
     ];
 
