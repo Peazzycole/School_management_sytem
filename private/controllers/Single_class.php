@@ -477,4 +477,51 @@ class Single_class extends Controller
 
         $this->view('single_class', $data);
     }
+
+    public function testDelete($id = '', $test_id = '')
+    {
+
+        $errors = array();
+        if (!Auth::logged_in()) {
+            $this->redirect('login');
+        }
+
+        $classes = new MyClasses();
+        $tests = new MyTests();
+        $row = $classes->firstResult('class_id', $id);
+        $testRow = $tests->firstResult('test_id', $test_id);
+
+
+        $crumbs[] = ['Dashboard', ''];
+        $crumbs[] = ['classes', 'classes'];
+
+        if ($row) {
+            $crumbs[] = [$row->class, ''];
+        }
+
+        $page_tab = 'test-delete';
+        $testClass = new MyTests();
+
+        $results = false;
+
+        if (count($_POST) > 0) {
+
+            if (isset($_POST['test'])) {
+
+
+                $testClass->delete($testRow->id);
+
+                $this->redirect('single_class/' . $id . '?tab=tests');
+            }
+        }
+
+        $data['row']         = $row;
+        $data['testRow']         = $testRow;
+        $data['crumbs']     = $crumbs;
+        $data['page_tab']     = $page_tab;
+        $data['results']     = $results;
+        $data['errors']     = $errors;
+
+        $this->view('single_class', $data);
+    }
 }

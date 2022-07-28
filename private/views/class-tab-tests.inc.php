@@ -13,7 +13,7 @@
 </div>
 <table class="table table-striped table-hover">
     <tr>
-
+        <th>Details</th>
         <th>Test Name</th>
         <th>Created by</th>
         <th>Active</th>
@@ -26,7 +26,9 @@
         <?php foreach ($tests as $row) : ?>
             <?php if ($row->school_id == $_SESSION['USER']->school_id) : ?>
                 <tr>
-
+                    <td><a href=" <?= ROOT ?>/single_test/<?= $row->test_id ?>">
+                            <button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i></button>
+                        </a></td>
                     <td>
                         <?= $row->test ?>
                     </td>

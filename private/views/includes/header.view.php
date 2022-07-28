@@ -14,4 +14,10 @@
 
 <body>
 
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+
     <div id="wrapper-div">
