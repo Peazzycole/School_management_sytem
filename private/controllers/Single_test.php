@@ -23,18 +23,25 @@ class Single_test extends Controller
             $crumbs[] = [$row->test, ''];
         }
 
+        $quest = new MyQuestions();
+
 
         $limit = 10;
         $pager = new Pager($limit);
         $offset = $pager->offset;
 
         $results = false;
+        $questions = $quest->where('test_id', $id);
+        $totalQuestions = count($questions);
+
 
 
 
         $data['row']         = $row;
         $data['crumbs']     = $crumbs;
         $data['results']     = $results;
+        $data['questions']     = $questions;
+        $data['totalQuestions']     = $totalQuestions;
         $data['page_tab']     = $page_tab;
         $data['errors']     = $errors;
         $data['pager']     = $pager;
@@ -66,12 +73,15 @@ class Single_test extends Controller
         $limit = 10;
         $pager = new Pager($limit);
         $offset = $pager->offset;
+        $quest = new MyQuestions();
 
         if (count($_POST) > 0) {
-            $quest = new MyQuestions();
 
             if ($quest->validate($_POST)) {
 
+                if ($myImage = uploadImage($_FILES)) {
+                    $_POST['image'] = $myImage;
+                };
                 $_POST['question_type'] = 'subjective';
                 $_POST['test_id'] = $id;
                 $_POST['date'] = date("Y-m-d H:i:s");

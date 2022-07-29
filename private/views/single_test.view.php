@@ -9,7 +9,7 @@
     }
 </style>
 
-<div class="container-fluid p-4 shadow mx-auto mt-3" style="max-width: 1000px;">
+<div class="container-fluid p-4 shadow mx-auto mt-3 mb-5" style="max-width: 1000px;">
     <?php $this->view('includes/crumbs', ['crumbs' => $crumbs]) ?>
     <?php if (is_object($row)) : ?>
 

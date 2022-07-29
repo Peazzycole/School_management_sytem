@@ -16,7 +16,8 @@ class MyQuestions extends Model
         'question_type',
         'answer',
         'choices',
-        'image'
+        'image',
+        'comment'
     ];
 
     protected $beforeInsert = [
